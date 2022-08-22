@@ -9,8 +9,10 @@ function computerPlay() {
   }
 }
 
+let playerScore = 0;
+let computerScore = 0;
+
 function playRound(playerSelection, computerSelection) {
-  playerSelection = playerSelection.toLowerCase();
   if (playerSelection == "rock" && computerSelection == "paper") {
     computerScore += 1;
     return "You lose, Paper wins Rock";
@@ -34,53 +36,74 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-let playerScore = 0;
-let computerScore = 0;
-
-function game() {
-  for (let i = 1; i < 6; i++) {
-    const computerSelection = computerPlay();
-    const playerSelection = prompt("Enter your play (Rock, Paper or Scissors)");
-    playRound(playerSelection, computerSelection);
-    if (checkError(playerSelection)) {
-      return "wrong Selection, try again";
-    } else {
-      display(playerSelection, computerSelection, playerScore, computerScore);
-    }
-  }
-  compare(playerScore, computerScore);
-}
-
-//checking for errors in the user input
-function checkError(val) {
-  if (val == null || val == "") {
-    return "No value Selected, Try again";
-  }
-  if (val !== "rock" && val !== "scissors" && val !== "paper") {
-    return "Wrong selection, Try Again!";
-  }
-}
-
-//for displaying the score on the console
-function display(
-  playerSelection,
-  computerSelection,
-  playerScore,
-  computerScore
-) {
-  console.log("You chose: " + playerSelection);
-  console.log("Score: " + playerScore);
-  console.log("The computer chose: " + computerSelection);
-  console.log("Score: " + computerScore);
-}
+// //checking for errors in the user input
+// function checkError(val) {
+//   if (val == null || val == "") {
+//     return "No value Selected, Try again";
+//   }
+//   if (val !== "rock" && val !== "scissors" && val !== "paper") {
+//     return "Wrong selection, Try Again!";
+//   }
+// }
 
 // for comparing both scores to decide who wins
 function compare(playerScore, computerScore) {
   if (playerScore == computerScore) {
-    console.log("The game is a tie");
+    return "The game is a tie";
   } else if (computerScore > playerScore || playerScore == 0) {
-    console.log("You lose");
+    return "You lose";
   } else if (playerScore > computerScore) {
-    console.log("You win");
+    return "You win";
   }
 }
+
+const buttons = document.querySelectorAll("button.btn");
+
+const show = document.getElementById("display");
+const display1 = document.getElementById("playerSelection");
+const display2 = document.getElementById("playerScore");
+const display3 = document.getElementById("computerSelection");
+const display4 = document.getElementById("computerScore");
+
+// for resetting the game
+function resetGame() {
+  const reset = document.getElementById("reset");
+  reset.addEventListener("click", function () {
+    playerScore = 0;
+    computerScore = 0;
+    show.textContent = "";
+    display1.textContent = "";
+    display2.textContent = "Player Score: " + 0;
+    display3.textContent = "PLAY AGAIN";
+    display4.textContent = "Computer Score: " + 0;
+  });
+}
+
+function game() {
+  buttons.forEach((button) => {
+    button.addEventListener("click", function () {
+      if (playerScore == 5 || computerScore == 5) {
+        const result = compare(playerScore, computerScore);
+        show.textContent = "";
+        display2.textContent = "Player Score: " + playerScore;
+        display4.textContent = "Computer Score: " + computerScore;
+        display1.textContent = "";
+        display3.textContent = "Game Over! " + result;
+
+        return;
+      } else {
+        const playerSelection = button.value;
+        const computerSelection = computerPlay();
+        const result = playRound(playerSelection, computerSelection);
+        show.textContent = result;
+        display1.textContent = "You chose: " + playerSelection;
+        display2.textContent = "Player Score: " + playerScore;
+        display3.textContent = "The computer chose: " + computerSelection;
+        display4.textContent = "Computer Score: " + computerScore;
+      }
+    });
+  });
+}
+
+resetGame();
+game();

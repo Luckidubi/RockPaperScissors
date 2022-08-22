@@ -1,13 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <script src="script.js"></script>
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="textDisplay">
+        <p><span id="playerSelection">START NEW GAME</span></p>
 
-</body>
+        <p><span id="computerSelection">ROCK PAPER SCISSORS</span></p>
+
+        <p id="display"></p>
+      </div>
+      <div class="score">
+        <p><span id="playerScore"></span></p>
+
+        <p><span id="computerScore"></span></p>
+      </div>
+
+      <br /><br />
+      <div class="buttons">
+        <button class="btn" id="rock" value="rock">ROCK</button>
+        <button class="btn" id="paper" value="paper">PAPER</button>
+        <button class="btn" id="scissors" value="scissors">SCISSORS</button>
+      </div>
+      <input type="button" class="btn" id="reset" value="NEW GAME" />
+    </div>
+  </body>
 </html>
